@@ -1,0 +1,1055 @@
+```html
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кодмастер — Профессиональные IT-услуги и разработка</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            900: '#1e3a8a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Lucide Icons (Современные иконки) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .code-font {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        /* Кастомный градиентный фон и эффекты */
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .dark .glass {
+            background: rgba(15, 23, 42, 0.7);
+        }
+        /* Анимации появления */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Пульсирующее свечение для акцентов */
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 0.9; transform: scale(1.05); }
+        }
+        .glow-bg {
+            animation: pulse-glow 8s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-300 antialiased overflow-x-hidden">
+
+    <!-- Фоновые декоративные элементы -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div class="absolute -top-[40%] -left-[20%] w-[80vw] h-[80vw] rounded-full bg-blue-400/10 dark:bg-blue-600/5 blur-[120px] glow-bg"></div>
+        <div class="absolute -bottom-[20%] -right-[10%] w-[60vw] h-[60vw] rounded-full bg-indigo-400/10 dark:bg-indigo-600/5 blur-[100px] glow-bg" style="animation-delay: -4s;"></div>
+    </div>
+
+    <!-- НАВИГАЦИЯ -->
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="main-header">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Логотип -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform">
+                        <i data-lucide="terminal" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <span class="text-xl font-bold tracking-tight bg-gradient-to-r from-blue-600 to-indigo-500 dark:from-blue-400 dark:to-indigo-300 bg-clip-text text-transparent code-font">&lt;Кодмастер/&gt;</span>
+                        <p class="text-[10px] text-slate-500 dark:text-slate-400 tracking-wider uppercase font-semibold">IT-решения</p>
+                    </div>
+                </a>
+
+                <!-- Десктопное меню -->
+                <nav class="hidden md:flex items-center gap-8">
+                    <a href="#about" class="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">О нас</a>
+                    <a href="#services" class="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Услуги</a>
+                    <a href="#portfolio" class="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Портфолио</a>
+                    <a href="#calculator" class="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Калькулятор</a>
+                    <a href="#contacts" class="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Контакты</a>
+                </nav>
+
+                <!-- Правая часть навигации -->
+                <div class="flex items-center gap-4">
+                    <!-- Переключатель темы -->
+                    <button id="theme-toggle" class="p-2.5 rounded-lg border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-900 transition-all text-slate-600 dark:text-slate-300" aria-label="Смена темы">
+                        <i data-lucide="sun" class="w-5 h-5 dark:hidden"></i>
+                        <i data-lucide="moon" class="w-5 h-5 hidden dark:block"></i>
+                    </button>
+
+                    <!-- Кнопка действия -->
+                    <a href="#contacts" class="hidden sm:flex items-center gap-2 px-5 h-11 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm transition-all shadow-lg shadow-blue-500/15 hover:shadow-blue-500/35 hover:-translate-y-0.5">
+                        <span>Начать проект</span>
+                        <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                    </a>
+
+                    <!-- Бургер-меню -->
+                    <button id="menu-toggle" class="p-2 md:hidden text-slate-600 dark:text-slate-300" aria-label="Открыть меню">
+                        <i data-lucide="menu" class="w-6 h-6" id="menu-icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Мобильное меню -->
+        <div id="mobile-menu" class="hidden md:hidden glass border-b border-slate-200 dark:border-slate-800 transition-all duration-300">
+            <div class="px-4 pt-2 pb-6 space-y-3">
+                <a href="#about" class="block py-2 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-900 text-base font-medium transition-colors" onclick="toggleMenu()">О нас</a>
+                <a href="#services" class="block py-2 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-900 text-base font-medium transition-colors" onclick="toggleMenu()">Услуги</a>
+                <a href="#portfolio" class="block py-2 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-900 text-base font-medium transition-colors" onclick="toggleMenu()">Портфолио</a>
+                <a href="#calculator" class="block py-2 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-900 text-base font-medium transition-colors" onclick="toggleMenu()">Калькулятор</a>
+                <a href="#contacts" class="block py-2 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-900 text-base font-medium transition-colors" onclick="toggleMenu()">Контакты</a>
+                <a href="#contacts" class="flex items-center justify-center gap-2 w-full py-3 mt-4 rounded-lg bg-blue-600 text-white font-medium text-center" onclick="toggleMenu()">
+                    <span>Начать проект</span>
+                    <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ГЛАВНЫЙ ЭКРАН (HERO SECTION) -->
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden z-10 min-h-screen flex items-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Текстовый контент -->
+                <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/50 border border-blue-100 dark:border-blue-900/50 text-blue-600 dark:text-blue-400 text-sm font-semibold tracking-wide">
+                        <span class="w-2 h-2 rounded-full bg-blue-500 animate-ping"></span>
+                        <span>Ваш надежный IT-партнер</span>
+                    </div>
+
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-none">
+                        Создаем цифровое <br>
+                        <span class="bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-300 bg-clip-text text-transparent">будущее вашего бизнеса</span>
+                    </h1>
+
+                    <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                        Студия разработки «Кодмастер» предлагает профессиональные решения: от адаптивных сайтов до сложных корпоративных систем и облачной интеграции. Пишем чистый код, ориентируясь на ваш результат.
+                    </p>
+
+                    <!-- Кнопки действий -->
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#services" class="inline-flex items-center justify-center gap-2 h-12 px-8 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold transition-all shadow-lg shadow-blue-500/20 hover:-translate-y-0.5">
+                            <span>Наши услуги</span>
+                            <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#calculator" class="inline-flex items-center justify-center gap-2 h-12 px-8 rounded-lg border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 hover:bg-slate-100 dark:hover:bg-slate-850 font-semibold transition-all hover:-translate-y-0.5">
+                            <i data-lucide="calculator" class="w-5 h-5 text-slate-500"></i>
+                            <span>Рассчитать стоимость</span>
+                        </a>
+                    </div>
+
+                    <!-- Мини-статистика -->
+                    <div class="grid grid-cols-3 gap-6 pt-8 border-t border-slate-200 dark:border-slate-800/80">
+                        <div>
+                            <p class="text-3xl font-extrabold text-blue-600 dark:text-blue-400">50+</p>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 uppercase tracking-wider font-semibold">Проектов</p>
+                        </div>
+                        <div>
+                            <p class="text-3xl font-extrabold text-blue-600 dark:text-blue-400">99%</p>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 uppercase tracking-wider font-semibold">Довольных клиентов</p>
+                        </div>
+                        <div>
+                            <p class="text-3xl font-extrabold text-blue-600 dark:text-blue-400">5 лет</p>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 uppercase tracking-wider font-semibold">На рынке IT</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Визуальный элемент справа (Интерактивный терминал) -->
+                <div class="lg:col-span-5 relative">
+                    <div class="absolute -inset-2 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl opacity-10 dark:opacity-20 blur-xl"></div>
+                    <div class="relative w-full rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-900 shadow-2xl overflow-hidden text-left">
+                        <!-- Шапка терминала -->
+                        <div class="flex items-center justify-between px-4 py-3 bg-slate-950 border-b border-slate-800">
+                            <div class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-red-500"></span>
+                                <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+                                <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                            </div>
+                            <span class="text-xs text-slate-500 font-medium code-font">developer@codemaster:~</span>
+                            <div class="w-12"></div>
+                        </div>
+                        <!-- Тело терминала -->
+                        <div class="p-6 code-font text-xs sm:text-sm text-emerald-400/90 space-y-4 min-h-[300px]">
+                            <div>
+                                <span class="text-indigo-400">codemaster</span> <span class="text-slate-400">git init</span>
+                            </div>
+                            <div class="text-slate-500">Initialized empty Git repository in /codemaster/</div>
+                            <div>
+                                <span class="text-indigo-400">codemaster</span> <span class="text-slate-400">npm install -g creative-ideas success</span>
+                            </div>
+                            <div class="text-yellow-400">✓ Added 2 packages and completed installation in 1.42s</div>
+                            <div>
+                                <span class="text-indigo-400">codemaster</span> <span class="text-slate-400">node run_project.js</span>
+                            </div>
+                            <div class="text-slate-300 pl-4 border-l-2 border-slate-700 space-y-1">
+                                <p class="text-blue-400">🚀 Запуск процесса разработки...</p>
+                                <p>• Стек: React, Vue, Node.js, Python</p>
+                                <p>• Скорость: Максимальная</p>
+                                <p>• Безопасность: Премиум</p>
+                                <p class="text-emerald-400">✓ Все системы работают стабильно!</p>
+                            </div>
+                            <div class="flex items-center gap-1.5">
+                                <span class="text-indigo-400">codemaster</span> <span class="text-slate-400">$</span>
+                                <span class="w-2.5 h-4 bg-emerald-400 inline-block animate-pulse"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- О НАС (ABOUT) -->
+    <section id="about" class="py-20 lg:py-32 border-t border-slate-200 dark:border-slate-900/50 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                <h2 class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest">О компании</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold mt-2">Почему выбирают именно Кодмастер?</p>
+                <p class="text-slate-600 dark:text-slate-400 mt-4">Мы не просто пишем код — мы вникаем в бизнес-процессы наших заказчиков, помогая оптимизировать затраты и увеличивать продажи.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Карта преимуществ 1 -->
+                <div class="bg-white/60 dark:bg-slate-900/60 p-8 rounded-2xl border border-slate-200 dark:border-slate-800/80 shadow-md hover:shadow-lg transition-all hover:-translate-y-1.5 reveal">
+                    <div class="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/50 flex items-center justify-center text-blue-600 dark:text-blue-400 mb-6">
+                        <i data-lucide="zap" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Быстрый старт</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                        Детально анализируем требования в течение 24 часов и сразу формируем команду для запуска вашего проекта без бюрократии.
+                    </p>
+                </div>
+
+                <!-- Карта преимуществ 2 -->
+                <div class="bg-white/60 dark:bg-slate-900/60 p-8 rounded-2xl border border-slate-200 dark:border-slate-800/80 shadow-md hover:shadow-lg transition-all hover:-translate-y-1.5 reveal" style="transition-delay: 150ms;">
+                    <div class="w-12 h-12 rounded-xl bg-indigo-50 dark:bg-indigo-950/50 flex items-center justify-center text-indigo-600 dark:text-indigo-400 mb-6">
+                        <i data-lucide="shield-check" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Прозрачность и Безопасность</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                        Работаем строго по договору (NDA). Еженедельно предоставляем понятные отчеты, вы всегда контролируете весь ход разработки.
+                    </p>
+                </div>
+
+                <!-- Карта преимуществ 3 -->
+                <div class="bg-white/60 dark:bg-slate-900/60 p-8 rounded-2xl border border-slate-200 dark:border-slate-800/80 shadow-md hover:shadow-lg transition-all hover:-translate-y-1.5 reveal" style="transition-delay: 300ms;">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 flex items-center justify-center text-emerald-600 dark:text-emerald-400 mb-6">
+                        <i data-lucide="layers" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Полный стек технологий</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                        Используем только современные и проверенные технологии. Создаем масштабируемую архитектуру с расчетом на будущий рост.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- УСЛУГИ (SERVICES) -->
+    <section id="services" class="py-20 lg:py-32 bg-slate-100/50 dark:bg-slate-900/20 border-t border-b border-slate-200 dark:border-slate-900/50 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                <h2 class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest">Наши Услуги</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold mt-2">Решаем любые IT-задачи</p>
+                <p class="text-slate-600 dark:text-slate-400 mt-4">Предоставляем полный цикл услуг от идеи и дизайна до разработки, продвижения и дальнейшей технической поддержки вашего продукта.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Услуга 1 -->
+                <div class="bg-white dark:bg-slate-900 p-8 rounded-2xl border border-slate-200 dark:border-slate-800/80 shadow-sm hover:shadow-md hover:border-blue-500/50 dark:hover:border-blue-500/40 transition-all group reveal">
+                    <div class="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/50 flex items-center justify-center text-blue-600 dark:text-blue-400 mb-6 group-hover:scale-110 transition-all">
+                        <i data-lucide="globe" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">Разработка сайтов</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm mb-6 leading-relaxed">Создание адаптивных лендингов, интернет-магазинов и многостраничных порталов с высокой конверсией и современным UX/UI дизайном.</p>
+                    <a href="#calculator" class="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider hover:gap-2.5 transition-all">
+                        <span>Рассчитать</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+
+                <!-- Услуга 2 -->
+                <div class="bg-white dark:bg-slate-900 p-8 rounded-2xl border border-slate-200 dark:border-slate-800/80 shadow-sm hover:shadow-md hover:border-indigo-500/50 dark:hover:border-indigo-500/40 transition-all group reveal" style="transition-delay: 100ms;">
+                    <div class="w-12 h-12 rounded-xl bg-indigo-50 dark:bg-indigo-950/50 flex items-center justify-center text-indigo-600 dark:text-indigo-400 mb-6 group-hover:scale-110 transition-all">
+                        <i data-lucide="smartphone" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">Мобильные приложения</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm mb-6 leading-relaxed">Разработка нативных и кроссплатформенных мобильных приложений для iOS и Android, публикация в App Store, Google Play и RuStore.</p>
+                    <a href="#calculator" class="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider hover:gap-2.5 transition-all">
+                        <span>Рассчитать</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+
+                <!-- Услуга 3 -->
+                <div class="bg-white dark:bg-slate-900 p-8 rounded-2xl border border-slate-200 dark:border-slate-800/80 shadow-sm hover:shadow-md hover:border-purple-500/50 dark:hover:border-purple-500/40 transition-all group reveal" style="transition-delay: 200ms;">
+                    <div class="w-12 h-12 rounded-xl bg-purple-50 dark:bg-purple-950/50 flex items-center justify-center text-purple-600 dark:text-purple-400 mb-6 group-hover:scale-110 transition-all">
+                        <i data-lucide="cpu" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">Автоматизация процессов</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm mb-6 leading-relaxed">Внедрение и настройка CRM-систем, ERP, интеграция сторонних API, автоматизация документооборота и процессов продаж.</p>
+                    <a href="#calculator" class="inline-flex items-center gap-1.5 text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider hover:gap-2.5 transition-all">
+                        <span>Рассчитать</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+
+                <!-- Услуга 4 -->
+                <div class="bg-white dark:bg-slate-900 p-8 rounded-2xl border border-slate-200 dark:border-slate-800/80 shadow-sm hover:shadow-md hover:border-emerald-500/50 dark:hover:border-emerald-500/40 transition-all group reveal">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 flex items-center justify-center text-emerald-600 dark:text-emerald-400 mb-6 group-hover:scale-110 transition-all">
+                        <i data-lucide="line-chart" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">SEO & Продвижение</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm mb-6 leading-relaxed">Поисковая оптимизация сайтов для Яндекса и Google, настройка эффективной контекстной и таргетированной рекламы.</p>
+                    <a href="#contacts" class="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider hover:gap-2.5 transition-all">
+                        <span>Заказать</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+
+                <!-- Услуга 5 -->
+                <div class="bg-white dark:bg-slate-900 p-8 rounded-2xl border border-slate-200 dark:border-slate-800/80 shadow-sm hover:shadow-md hover:border-amber-500/50 dark:hover:border-amber-500/40 transition-all group reveal" style="transition-delay: 100ms;">
+                    <div class="w-12 h-12 rounded-xl bg-amber-50 dark:bg-amber-950/50 flex items-center justify-center text-amber-600 dark:text-amber-400 mb-6 group-hover:scale-110 transition-all">
+                        <i data-lucide="wrench" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">Техподдержка 24/7</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm mb-6 leading-relaxed">Обеспечение бесперебойной работы ваших ресурсов, мониторинг безопасности, резервное копирование и оперативное исправление ошибок.</p>
+                    <a href="#contacts" class="inline-flex items-center gap-1.5 text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider hover:gap-2.5 transition-all">
+                        <span>Заказать</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+
+                <!-- Услуга 6 -->
+                <div class="bg-white dark:bg-slate-900 p-8 rounded-2xl border border-slate-200 dark:border-slate-800/80 shadow-sm hover:shadow-md hover:border-pink-500/50 dark:hover:border-pink-500/40 transition-all group reveal" style="transition-delay: 200ms;">
+                    <div class="w-12 h-12 rounded-xl bg-pink-50 dark:bg-pink-950/50 flex items-center justify-center text-pink-600 dark:text-pink-400 mb-6 group-hover:scale-110 transition-all">
+                        <i data-lucide="cloud" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors">Облачные решения</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm mb-6 leading-relaxed">Миграция данных, проектирование серверной инфраструктуры в Яндекс.Облаке, настройка CI/CD и контейнеризации (Docker/Kubernetes).</p>
+                    <a href="#contacts" class="inline-flex items-center gap-1.5 text-xs font-bold text-pink-600 dark:text-pink-400 uppercase tracking-wider hover:gap-2.5 transition-all">
+                        <span>Заказать</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ПОРТФОЛИО (PORTFOLIO) -->
+    <section id="portfolio" class="py-20 lg:py-32 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 reveal">
+                <div>
+                    <h2 class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest">Портфолио</h2>
+                    <p class="text-3xl sm:text-4xl font-extrabold mt-2">Реализованные проекты</p>
+                </div>
+                <!-- Фильтры -->
+                <div class="flex flex-wrap gap-2 mt-6 md:mt-0" id="portfolio-filters">
+                    <button class="px-5 py-2 text-sm font-semibold rounded-lg bg-blue-600 text-white transition-all shadow-md shadow-blue-500/10" data-filter="all">Все</button>
+                    <button class="px-5 py-2 text-sm font-medium rounded-lg hover:bg-slate-200 dark:hover:bg-slate-850 text-slate-600 dark:text-slate-300 transition-all" data-filter="sites">Сайты</button>
+                    <button class="px-5 py-2 text-sm font-medium rounded-lg hover:bg-slate-200 dark:hover:bg-slate-850 text-slate-600 dark:text-slate-300 transition-all" data-filter="apps">Приложения</button>
+                    <button class="px-5 py-2 text-sm font-medium rounded-lg hover:bg-slate-200 dark:hover:bg-slate-850 text-slate-600 dark:text-slate-300 transition-all" data-filter="crm">CRM & Сервисы</button>
+                </div>
+            </div>
+
+            <!-- Сетка элементов портфолио -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="portfolio-grid">
+                <!-- Элемент 1 -->
+                <div class="portfolio-item bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800/80 overflow-hidden shadow-sm hover:shadow-xl transition-all group reveal" data-category="sites">
+                    <div class="relative overflow-hidden aspect-video bg-slate-100 dark:bg-slate-950 flex items-center justify-center">
+                        <i data-lucide="layout" class="w-16 h-16 text-blue-500/20 group-hover:scale-110 transition-transform duration-500"></i>
+                        <span class="absolute top-4 left-4 bg-blue-600 text-white text-xs px-2.5 py-1 rounded-full font-semibold">Сайты</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Платформа E-Commerce для ритейлера</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-4">Разработка адаптивного интернет-магазина с каталогом более 10 тыс. товаров и умной фильтрацией.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 font-semibold">Vue.js</span>
+                            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 font-semibold">Node.js</span>
+                            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 font-semibold">PostgreSQL</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Элемент 2 -->
+                <div class="portfolio-item bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800/80 overflow-hidden shadow-sm hover:shadow-xl transition-all group reveal" data-category="apps" style="transition-delay: 100ms;">
+                    <div class="relative overflow-hidden aspect-video bg-slate-100 dark:bg-slate-950 flex items-center justify-center">
+                        <i data-lucide="smartphone" class="w-16 h-16 text-indigo-500/20 group-hover:scale-110 transition-transform duration-500"></i>
+                        <span class="absolute top-4 left-4 bg-indigo-600 text-white text-xs px-2.5 py-1 rounded-full font-semibold">Приложения</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Фитнес-трекер FitFlow</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-4">Мобильное приложение для создания персональных программ тренировок и отслеживания прогресса с аналитикой.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 font-semibold">Flutter</span>
+                            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 font-semibold">Firebase</span>
+                            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 font-semibold">GraphQL</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Элемент 3 -->
+                <div class="portfolio-item bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800/80 overflow-hidden shadow-sm hover:shadow-xl transition-all group reveal" data-category="crm" style="transition-delay: 200ms;">
+                    <div class="relative overflow-hidden aspect-video bg-slate-100 dark:bg-slate-950 flex items-center justify-center">
+                        <i data-lucide="database" class="w-16 h-16 text-purple-500/20 group-hover:scale-110 transition-transform duration-500"></i>
+                        <span class="absolute top-4 left-4 bg-purple-600 text-white text-xs px-2.5 py-1 rounded-full font-semibold">CRM & Сервисы</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">CRM-система для службы доставки</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-4">Индивидуальная CRM для автоматизации логистики, маршрутизации заказов курьеров и трекинга в реальном времени.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 font-semibold">React.js</span>
+                            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 font-semibold">Python (Django)</span>
+                            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 font-semibold">Redis</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Элемент 4 -->
+                <div class="portfolio-item bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800/80 overflow-hidden shadow-sm hover:shadow-xl transition-all group reveal" data-category="sites">
+                    <div class="relative overflow-hidden aspect-video bg-slate-100 dark:bg-slate-950 flex items-center justify-center">
+                        <i data-lucide="layout-template" class="w-16 h-16 text-blue-500/20 group-hover:scale-110 transition-transform duration-500"></i>
+                        <span class="absolute top-4 left-4 bg-blue-600 text-white text-xs px-2.5 py-1 rounded-full font-semibold">Сайты</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Корпоративный сайт юридической группы</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-4">Стильный, строгий сайт-визитка с интерактивной формой записи на консультации, картой филиалов и блогом.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 font-semibold">HTML5/SCSS</span>
+                            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 font-semibold">Vanilla JS</span>
+                            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 font-semibold">WordPress</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Элемент 5 -->
+                <div class="portfolio-item bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800/80 overflow-hidden shadow-sm hover:shadow-xl transition-all group reveal" data-category="apps" style="transition-delay: 100ms;">
+                    <div class="relative overflow-hidden aspect-video bg-slate-100 dark:bg-slate-950 flex items-center justify-center">
+                        <i data-lucide="shopping-bag" class="w-16 h-16 text-indigo-500/20 group-hover:scale-110 transition-transform duration-500"></i>
+                        <span class="absolute top-4 left-4 bg-indigo-600 text-white text-xs px-2.5 py-1 rounded-full font-semibold">Приложения</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Маркетплейс локальных товаров</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-4">Разработка маркетплейса ремесленных изделий с интеграцией системы платежей и курьерской карты.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 font-semibold">React Native</span>
+                            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 font-semibold">Nest.js</span>
+                            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 font-semibold">MongoDB</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Элемент 6 -->
+                <div class="portfolio-item bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800/80 overflow-hidden shadow-sm hover:shadow-xl transition-all group reveal" data-category="crm" style="transition-delay: 200ms;">
+                    <div class="relative overflow-hidden aspect-video bg-slate-100 dark:bg-slate-950 flex items-center justify-center">
+                        <i data-lucide="shield-check" class="w-16 h-16 text-purple-500/20 group-hover:scale-110 transition-transform duration-500"></i>
+                        <span class="absolute top-4 left-4 bg-purple-600 text-white text-xs px-2.5 py-1 rounded-full font-semibold">CRM & Сервисы</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Интранет-портал для крупной клиники</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-4">Защищенный внутренний сервис для взаимодействия медперсонала, ведения истории болезней и документооборота.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 font-semibold">Next.js</span>
+                            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 font-semibold">FastAPI</span>
+                            <span class="text-xs px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 font-semibold">Docker</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ИНТЕРАКТИВНЫЙ КАЛЬКУЛЯТОР СТОИМОСТИ (CALCULATOR) -->
+    <section id="calculator" class="py-20 lg:py-32 bg-slate-100/50 dark:bg-slate-900/20 border-t border-b border-slate-200 dark:border-slate-900/50 relative z-10">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                <h2 class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest">Инструмент оценки</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold mt-2">Калькулятор стоимости проекта</p>
+                <p class="text-slate-600 dark:text-slate-400 mt-4">Выберите параметры, чтобы получить ориентировочную стоимость и срок реализации вашего проекта.</p>
+            </div>
+
+            <!-- Тело калькулятора -->
+            <div class="bg-white dark:bg-slate-900 p-8 sm:p-10 rounded-3xl border border-slate-200 dark:border-slate-800/80 shadow-lg reveal">
+                <div class="space-y-8">
+                    <!-- Выбор типа проекта -->
+                    <div>
+                        <label class="block text-sm font-semibold mb-3">Тип проекта</label>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <label class="relative flex flex-col p-4 rounded-xl border border-slate-200 dark:border-slate-800 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-850/50 transition-colors">
+                                <input type="radio" name="project-type" value="landing" checked class="absolute top-4 right-4 text-blue-600 accent-blue-600">
+                                <span class="font-bold text-sm">Лендинг</span>
+                                <span class="text-xs text-slate-500 mt-1">от 35 000 ₽</span>
+                            </label>
+                            <label class="relative flex flex-col p-4 rounded-xl border border-slate-200 dark:border-slate-800 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-850/50 transition-colors">
+                                <input type="radio" name="project-type" value="shop" class="absolute top-4 right-4 text-blue-600 accent-blue-600">
+                                <span class="font-bold text-sm">Интернет-магазин</span>
+                                <span class="text-xs text-slate-500 mt-1">от 75 000 ₽</span>
+                            </label>
+                            <label class="relative flex flex-col p-4 rounded-xl border border-slate-200 dark:border-slate-800 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-850/50 transition-colors">
+                                <input type="radio" name="project-type" value="portal" class="absolute top-4 right-4 text-blue-600 accent-blue-600">
+                                <span class="font-bold text-sm">CRM / Сервис / Приложение</span>
+                                <span class="text-xs text-slate-500 mt-1">от 120 000 ₽</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Выбор сложности дизайна -->
+                    <div>
+                        <label class="block text-sm font-semibold mb-3">Дизайн интерфейса</label>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <label class="relative flex flex-col p-4 rounded-xl border border-slate-200 dark:border-slate-800 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-850/50 transition-colors">
+                                <input type="radio" name="design-type" value="template" checked class="absolute top-4 right-4 text-blue-600 accent-blue-600">
+                                <span class="font-bold text-sm">Готовое решение</span>
+                                <span class="text-xs text-slate-500 mt-1">Быстро и лаконично</span>
+                            </label>
+                            <label class="relative flex flex-col p-4 rounded-xl border border-slate-200 dark:border-slate-800 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-850/50 transition-colors">
+                                <input type="radio" name="design-type" value="custom" class="absolute top-4 right-4 text-blue-600 accent-blue-600">
+                                <span class="font-bold text-sm">Индивидуальный UX/UI</span>
+                                <span class="text-xs text-slate-500 mt-1">Разработка с нуля</span>
+                            </label>
+                            <label class="relative flex flex-col p-4 rounded-xl border border-slate-200 dark:border-slate-800 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-850/50 transition-colors">
+                                <input type="radio" name="design-type" value="premium" class="absolute top-4 right-4 text-blue-600 accent-blue-600">
+                                <span class="font-bold text-sm">Премиум-дизайн</span>
+                                <span class="text-xs text-slate-500 mt-1">Анимации, 3D элементы</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Дополнительные функции -->
+                    <div>
+                        <label class="block text-sm font-semibold mb-3">Дополнительные опции</label>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <label class="flex items-center gap-3 p-4 rounded-xl border border-slate-200 dark:border-slate-800 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-850/50 transition-colors">
+                                <input type="checkbox" id="opt-seo" class="w-4 h-4 text-blue-600 accent-blue-600 rounded">
+                                <div>
+                                    <span class="block text-sm font-semibold">Базовая SEO оптимизация</span>
+                                    <span class="text-xs text-slate-500">+10 000 ₽</span>
+                                </div>
+                            </label>
+                            <label class="flex items-center gap-3 p-4 rounded-xl border border-slate-200 dark:border-slate-800 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-850/50 transition-colors">
+                                <input type="checkbox" id="opt-admin" class="w-4 h-4 text-blue-600 accent-blue-600 rounded">
+                                <div>
+                                    <span class="block text-sm font-semibold">Панель управления (CMS)</span>
+                                    <span class="text-xs text-slate-500">+15 000 ₽</span>
+                                </div>
+                            </label>
+                            <label class="flex items-center gap-3 p-4 rounded-xl border border-slate-200 dark:border-slate-800 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-850/50 transition-colors">
+                                <input type="checkbox" id="opt-multilang" class="w-4 h-4 text-blue-600 accent-blue-600 rounded">
+                                <div>
+                                    <span class="block text-sm font-semibold">Мультиязычность</span>
+                                    <span class="text-xs text-slate-500">+15 000 ₽</span>
+                                </div>
+                            </label>
+                            <label class="flex items-center gap-3 p-4 rounded-xl border border-slate-200 dark:border-slate-800 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-850/50 transition-colors">
+                                <input type="checkbox" id="opt-support" class="w-4 h-4 text-blue-600 accent-blue-600 rounded">
+                                <div>
+                                    <span class="block text-sm font-semibold">Поддержка (1 месяц)</span>
+                                    <span class="text-xs text-slate-500">+12 000 ₽</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Результат -->
+                    <div class="mt-10 p-6 sm:p-8 rounded-2xl bg-blue-50 dark:bg-blue-950/40 border border-blue-100 dark:border-blue-900/50 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+                        <div>
+                            <span class="text-xs uppercase tracking-wider font-bold text-slate-500 dark:text-slate-400">Итоговая стоимость</span>
+                            <div class="text-3xl sm:text-4xl font-extrabold text-blue-600 dark:text-blue-400 mt-1" id="calc-price">
+                                35 000 ₽
+                            </div>
+                            <span class="text-xs text-slate-500 dark:text-slate-400 mt-2 block" id="calc-time">Ориентировочный срок: 5–7 рабочих дней</span>
+                        </div>
+                        <button onclick="applyWithPrice()" class="h-12 px-8 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm transition-all shadow-lg shadow-blue-500/15 hover:shadow-blue-500/35 hover:-translate-y-0.5 whitespace-nowrap">
+                            Обсудить этот проект
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ОТЗЫВЫ КЛИЕНТОВ (TESTIMONIALS) -->
+    <section class="py-20 lg:py-32 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                <h2 class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest">Отзывы</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold mt-2">Что говорят о нас наши клиенты</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Отзыв 1 -->
+                <div class="bg-white dark:bg-slate-900 p-8 rounded-2xl border border-slate-200 dark:border-slate-800/80 shadow-sm relative reveal">
+                    <div class="absolute top-6 right-8 text-blue-500/10">
+                        <i data-lucide="quote" class="w-12 h-12"></i>
+                    </div>
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-850 flex items-center justify-center font-bold text-blue-600 text-lg">
+                            ИП
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-base">Игорь Прудников</h4>
+                            <p class="text-xs text-slate-500">Основатель "СпортМаркет"</p>
+                        </div>
+                    </div>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                        Ребята из Кодмастер разработали отличный интернет-магазин! Все этапы были выполнены точно в оговоренные сроки. Сайт летает, а продажи выросли в 1.5 раза. Огромное спасибо за проделанную работу.
+                    </p>
+                </div>
+
+                <!-- Отзыв 2 -->
+                <div class="bg-white dark:bg-slate-900 p-8 rounded-2xl border border-slate-200 dark:border-slate-800/80 shadow-sm relative reveal" style="transition-delay: 100ms;">
+                    <div class="absolute top-6 right-8 text-blue-500/10">
+                        <i data-lucide="quote" class="w-12 h-12"></i>
+                    </div>
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-850 flex items-center justify-center font-bold text-indigo-600 text-lg">
+                            ЕК
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-base">Елена Котова</h4>
+                            <p class="text-xs text-slate-500">Директор по маркетингу "ЮрКонсалт"</p>
+                        </div>
+                    </div>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                        Сотрудничали по SEO-оптимизации и редизайну нашего корпоративного сайта. Позиции в Яндексе значительно укрепились уже на второй месяц. Понравился системный подход и регулярные аналитические отчеты.
+                    </p>
+                </div>
+
+                <!-- Отзыв 3 -->
+                <div class="bg-white dark:bg-slate-900 p-8 rounded-2xl border border-slate-200 dark:border-slate-800/80 shadow-sm relative reveal" style="transition-delay: 200ms;">
+                    <div class="absolute top-6 right-8 text-blue-500/10">
+                        <i data-lucide="quote" class="w-12 h-12"></i>
+                    </div>
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-850 flex items-center justify-center font-bold text-purple-600 text-lg">
+                            АМ
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-base">Антон Михайлов</h4>
+                            <p class="text-xs text-slate-500">CTO "FastDelivery"</p>
+                        </div>
+                    </div>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                        Студия сделала для нас интранет-портал для курьеров. Проект был сложный с точки зрения API-интеграций и работы с геоданными. Справились на ура, архитектура очень чистая и отлично масштабируется.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- КОНТАКТЫ & ФОРМА СВЯЗИ (CONTACTS) -->
+    <section id="contacts" class="py-20 lg:py-32 border-t border-slate-200 dark:border-slate-900/50 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-12 gap-12 items-stretch">
+                
+                <!-- Контактная информация -->
+                <div class="lg:col-span-5 flex flex-col justify-between space-y-12 reveal">
+                    <div class="space-y-6">
+                        <h2 class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest">Обратная связь</h2>
+                        <p class="text-3xl sm:text-4xl font-extrabold">Давайте создадим ваш следующий проект вместе</p>
+                        <p class="text-slate-600 dark:text-slate-400">Опишите вашу идею или отправьте ТЗ, и наш менеджер свяжется с вами в течение часа для бесплатной консультации.</p>
+                    </div>
+
+                    <div class="space-y-6">
+                        <!-- Контакт 1 -->
+                        <div class="flex items-center gap-4">
+                            <div class="w-11 h-11 rounded-lg bg-blue-50 dark:bg-blue-950/50 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0">
+                                <i data-lucide="phone" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Телефон</p>
+                                <a href="tel:+78005553535" class="font-bold hover:text-blue-600 dark:hover:text-blue-400 transition-colors">+7 (800) 555-35-35</a>
+                            </div>
+                        </div>
+
+                        <!-- Контакт 2 -->
+                        <div class="flex items-center gap-4">
+                            <div class="w-11 h-11 rounded-lg bg-indigo-50 dark:bg-indigo-950/50 flex items-center justify-center text-indigo-600 dark:text-indigo-400 shrink-0">
+                                <i data-lucide="mail" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-500 uppercase tracking-wider font-semibold">E-mail</p>
+                                <a href="mailto:info@codemaster.ru" class="font-bold hover:text-blue-600 dark:hover:text-blue-400 transition-colors">info@codemaster.ru</a>
+                            </div>
+                        </div>
+
+                        <!-- Контакт 3 -->
+                        <div class="flex items-center gap-4">
+                            <div class="w-11 h-11 rounded-lg bg-emerald-50 dark:bg-emerald-950/50 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0">
+                                <i data-lucide="map-pin" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Адрес офиса</p>
+                                <p class="font-bold">г. Москва, Пресненская наб., д. 12 (Москва-Сити)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Соцсети -->
+                    <div class="flex gap-4">
+                        <a href="#" class="p-3 rounded-lg border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors hover:text-blue-600 dark:hover:text-blue-400" aria-label="Telegram">
+                            <i data-lucide="send" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="p-3 rounded-lg border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors hover:text-blue-600 dark:hover:text-blue-400" aria-label="VK">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15.68 2H8.32C3.41 2 2 3.41 2 8.32v7.36C2 20.59 3.41 22 8.32 22h7.36c4.91 0 6.32-1.41 6.32-6.32V8.32C22 3.41 20.59 2 15.68 2zm3.32 12.35c.42.42.84 1.13.43 1.63-.41.48-1.5.41-1.5.41l-2.02-.03c-.63.02-1.12-.41-1.12-.41-.53-.47-1.1-1.39-1.53-1.17-.43.22-.39.87-.39.87v.64c0 .35-.29.41-.29.41h-.85c-1.84.05-3.64-1.14-4.87-2.91-1.78-2.58-2.28-4.52-2.28-4.52s-.12-.32.18-.32h1.9c.47 0 .57.34.57.34.33.86.85 1.77 1.34 2.14.47.34.69.17.69-.17V9.7c0-.85-.56-.91-.56-.91l.03-.45h2.15c.42 0 .52.28.52.28v2.66c0 .28.18.36.28.18.42-.71.97-1.76.97-1.76s.1-.22.38-.22h2c.45 0 .5.2.5.2-.01.37-.8 1.78-1.17 2.37-.23.36-.08.64.15.86 1 .94 1.7 1.73 1.95 2.1z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="p-3 rounded-lg border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors hover:text-blue-600 dark:hover:text-blue-400" aria-label="GitHub">
+                            <i data-lucide="github" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Форма обратной связи -->
+                <div class="lg:col-span-7 bg-white dark:bg-slate-900 p-8 sm:p-10 rounded-3xl border border-slate-200 dark:border-slate-800/80 shadow-lg flex flex-col justify-between reveal" style="transition-delay: 150ms;">
+                    <form id="contact-form" class="space-y-6" onsubmit="handleFormSubmit(event)">
+                        <div class="grid sm:grid-cols-2 gap-6">
+                            <div>
+                                <label for="form-name" class="block text-sm font-semibold mb-2">Ваше имя *</label>
+                                <input type="text" id="form-name" required placeholder="Константин" class="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-transparent focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all">
+                            </div>
+                            <div>
+                                <label for="form-phone" class="block text-sm font-semibold mb-2">Номер телефона *</label>
+                                <input type="tel" id="form-phone" required placeholder="+7 (999) 999-99-99" class="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-transparent focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="form-email" class="block text-sm font-semibold mb-2">E-mail</label>
+                            <input type="email" id="form-email" placeholder="example@mail.ru" class="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-transparent focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all">
+                        </div>
+
+                        <div>
+                            <label for="form-message" class="block text-sm font-semibold mb-2">Расскажите о проекте</label>
+                            <textarea id="form-message" rows="4" placeholder="Какая задача стоит перед вами? Имеется ли техническое задание?" class="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-transparent focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all resize-none"></textarea>
+                        </div>
+
+                        <!-- Скрытое поле для передачи данных из калькулятора -->
+                        <input type="hidden" id="form-calc-details" value="">
+
+                        <button type="submit" class="w-full h-12 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold transition-all shadow-lg shadow-blue-500/15 hover:shadow-blue-500/35 flex items-center justify-center gap-2">
+                            <span>Отправить заявку</span>
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                        </button>
+
+                        <p class="text-xs text-center text-slate-500 dark:text-slate-400 mt-4 leading-normal">
+                            Нажимая на кнопку, вы соглашаетесь на обработку персональных данных в соответствии с <a href="#" class="underline hover:text-blue-500">политикой конфиденциальности</a>.
+                        </p>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ПОДВАЛ (FOOTER) -->
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-slate-800">
+                <!-- Логотип -->
+                <a href="#" class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white">
+                        <i data-lucide="terminal" class="w-4 h-4"></i>
+                    </div>
+                    <span class="text-lg font-bold tracking-tight text-white code-font">&lt;Кодмастер/&gt;</span>
+                </a>
+
+                <!-- Навигация -->
+                <div class="flex flex-wrap justify-center gap-6 text-sm">
+                    <a href="#about" class="hover:text-white transition-colors">О нас</a>
+                    <a href="#services" class="hover:text-white transition-colors">Услуги</a>
+                    <a href="#portfolio" class="hover:text-white transition-colors">Портфолио</a>
+                    <a href="#calculator" class="hover:text-white transition-colors">Калькулятор</a>
+                    <a href="#contacts" class="hover:text-white transition-colors">Контакты</a>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 text-xs">
+                <p>&copy; 2026 Студия IT-разработки «Кодмастер». Все права защищены.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:text-white transition-colors">Политика конфиденциальности</a>
+                    <span>&bull;</span>
+                    <a href="#" class="hover:text-white transition-colors">Пользовательское соглашение</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- МОДАЛЬНОЕ ОКНО УСПЕШНОЙ ОТПРАВКИ -->
+    <div id="modal-success" class="fixed inset-0 z-[100] hidden items-center justify-center p-4">
+        <div class="absolute inset-0 bg-slate-950/60 backdrop-blur-sm" onclick="closeModal()"></div>
+        <div class="relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 max-w-md w-full p-8 rounded-2xl shadow-2xl text-center space-y-6">
+            <div class="w-16 h-16 rounded-full bg-emerald-50 dark:bg-emerald-950/50 flex items-center justify-center text-emerald-600 dark:text-emerald-400 mx-auto">
+                <i data-lucide="check-circle" class="w-10 h-10"></i>
+            </div>
+            <div class="space-y-2">
+                <h3 class="text-2xl font-bold text-slate-900 dark:text-white">Заявка принята!</h3>
+                <p class="text-slate-600 dark:text-slate-400 text-sm">Мы уже получили ваше сообщение и готовим коммерческое предложение. Специалист свяжется с вами в течение часа.</p>
+            </div>
+            <button onclick="closeModal()" class="w-full h-11 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold transition-all">
+                Отлично
+            </button>
+        </div>
+    </div>
+
+
+    <script>
+        // Инициализация иконок Lucide
+        lucide.createIcons();
+
+        // ----------------------------------------------------
+        // ТЕМНАЯ / СВЕТЛАЯ ТЕМА
+        // ----------------------------------------------------
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        
+        // Проверка локального хранилища или настроек системы
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // ----------------------------------------------------
+        // НАВИГАЦИЯ: Изменение шапки при скролле & Мобильное меню
+        // ----------------------------------------------------
+        const header = document.getElementById('main-header');
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                header.classList.add('glass', 'shadow-md', 'border-b', 'border-slate-200/55', 'dark:border-slate-800/55');
+                header.classList.remove('py-2');
+            } else {
+                header.classList.remove('glass', 'shadow-md', 'border-b', 'border-slate-200/55', 'dark:border-slate-800/55');
+            }
+        });
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('hidden');
+            if (mobileMenu.classList.contains('hidden')) {
+                menuIcon.setAttribute('data-lucide', 'menu');
+            } else {
+                menuIcon.setAttribute('data-lucide', 'x');
+            }
+            lucide.createIcons();
+        }
+
+        menuToggle.addEventListener('click', toggleMenu);
+
+        // ----------------------------------------------------
+        // АНИМАЦИЯ ПОЯВЛЕНИЯ ПРИ СКРОЛЛЕ (Reveal on Scroll)
+        // ----------------------------------------------------
+        const reveals = document.querySelectorAll('.reveal');
+
+        function reveal() {
+            for (let i = 0; i < reveals.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveals[i].getBoundingClientRect().top;
+                const elementVisible = 100; // порог прокрутки
+
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        }
+
+        window.addEventListener('scroll', reveal);
+        // Запустить один раз при старте
+        reveal();
+
+        // ----------------------------------------------------
+        // ФИЛЬТРАЦИЯ ПОРТФОЛИО
+        // ----------------------------------------------------
+        const filterButtons = document.querySelectorAll('#portfolio-filters button');
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Изменение активной кнопки
+                filterButtons.forEach(btn => {
+                    btn.classList.remove('bg-blue-600', 'text-white', 'shadow-md', 'shadow-blue-500/10');
+                    btn.classList.add('hover:bg-slate-200', 'dark:hover:bg-slate-850', 'text-slate-600', 'dark:text-slate-300', 'font-medium');
+                });
+                button.classList.add('bg-blue-600', 'text-white', 'shadow-md', 'shadow-blue-500/10');
+                button.classList.remove('hover:bg-slate-200', 'dark:hover:bg-slate-850', 'text-slate-600', 'dark:text-slate-300', 'font-medium');
+
+                const filterValue = button.getAttribute('data-filter');
+
+                portfolioItems.forEach(item => {
+                    if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                        item.style.display = 'block';
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'scale(1)';
+                        }, 50);
+                    } else {
+                        item.style.opacity = '0';
+                        item.style.transform = 'scale(0.95)';
+                        setTimeout(() => {
+                            item.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+
+        // ----------------------------------------------------
+        // ИНТЕРАКТИВНЫЙ КАЛЬКУЛЯТОР
+        // ----------------------------------------------------
+        const typeInputs = document.querySelectorAll('input[name="project-type"]');
+        const designInputs = document.querySelectorAll('input[name="design-type"]');
+        const optionsInputs = document.querySelectorAll('#calculator input[type="checkbox"]');
+        
+        const priceDisplay = document.getElementById('calc-price');
+        const timeDisplay = document.getElementById('calc-time');
+
+        // Константы для расчетов
+        const PRICES = {
+            types: { landing: 35000, shop: 75000, portal: 120000 },
+            designs: { template: 0, custom: 20000, premium: 45000 },
+            options: {
+                'opt-seo': 10000,
+                'opt-admin': 15000,
+                'opt-multilang': 15000,
+                'opt-support': 12000
+            }
+        };
+
+        const TIMES = {
+            landing: '5–7 рабочих дней',
+            shop: '12–18 рабочих дней',
+            portal: '25–40 рабочих дней'
+        };
+
+        function calculateCost() {
+            let selectedType = 'landing';
+            typeInputs.forEach(input => { if (input.checked) selectedType = input.value; });
+
+            let selectedDesign = 'template';
+            designInputs.forEach(input => { if (input.checked) selectedDesign = input.value; });
+
+            let total = PRICES.types[selectedType] + PRICES.designs[selectedDesign];
+
+            optionsInputs.forEach(checkbox => {
+                if (checkbox.checked) {
+                    total += PRICES.options[checkbox.id] || 0;
+                }
+            });
+
+            // Форматирование цены
+            priceDisplay.textContent = total.toLocaleString('ru-RU') + ' ₽';
+            timeDisplay.textContent = 'Ориентировочный срок: ' + TIMES[selectedType];
+            
+            // Запись в скрытое поле для формы
+            const detailText = `Выбран проект: ${selectedType}, Дизайн: ${selectedDesign}. Доп. опции: ${Array.from(optionsInputs).filter(i => i.checked).map(i => i.parentNode.querySelector('span').textContent).join(', ') || 'нет'}. Итого: ${total} руб.`;
+            document.getElementById('form-calc-details').value = detailText;
+        }
+
+        // Слушатели событий на элементы калькулятора
+        [...typeInputs, ...designInputs, ...optionsInputs].forEach(el => {
+            el.addEventListener('change', calculateCost);
+        });
+
+        // Кнопка обсуждения из калькулятора
+        function applyWithPrice() {
+            calculateCost();
+            const messageField = document.getElementById('form-message');
+            const detailText = document.getElementById('form-calc-details').value;
+            messageField.value = `Здравствуйте! Хочу обсудить проект с предварительным расчетом:\n${detailText}\n\n`;
+            
+            // Плавный скролл к контактам
+            document.getElementById('contacts').scrollIntoView({ behavior: 'smooth' });
+            messageField.focus();
+        }
+
+        // Первичный расчет при инициализации
+        calculateCost();
+
+        // ----------------------------------------------------
+        // ФОРМА ОБРАТНОЙ СВЯЗИ И МОДАЛЬНОЕ ОКНО
+        // ----------------------------------------------------
+        const successModal = document.getElementById('modal-success');
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            // Имитация отправки данных (в реальном проекте отправляли бы по API)
+            const name = document.getElementById('form-name').value;
+            const phone = document.getElementById('form-phone').value;
+            const email = document.getElementById('form-email').value;
+            const message = document.getElementById('form-message').value;
+
+            // Здесь может быть вызов fetch для отправки на бэкенд
+            console.log("Данные отправлены:", { name, phone, email, message });
+
+            // Очищаем форму
+            document.getElementById('contact-form').reset();
+            document.getElementById('form-calc-details').value = "";
+            calculateCost(); // Сбросит расчет
+
+            // Открываем модальное окно успешной отправки
+            successModal.classList.remove('hidden');
+            successModal.classList.add('flex');
+            document.body.classList.add('overflow-hidden'); // Запрещаем скролл под модальным окном
+        }
+
+        function closeModal() {
+            successModal.classList.remove('flex');
+            successModal.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+        }
+    </script>
+</body>
+</html>
+
+```
